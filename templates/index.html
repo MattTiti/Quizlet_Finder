@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Quizlet Search</title>
+    <link rel="stylesheet" type="text/css" href="/static/styles.css">
+</head>
+<body>
+    <h1 class="header">Quizlet Finder</h1>
+    <form action="/search" method="post">
+        <input type="text" name="query" value="{{ query }}">
+        <input type="submit" value="Search">
+    </form>
+    {% if links %}
+    <div class="links-container">
+        {% for i in range(0, (links|length) - 1) %}
+        <button class="link-button">
+            <p class="link-number">{{ '#' }}{{ i + 1 }}</p>
+            <a href="{{ links[i] }}" target="_blank">{{ titles[i] }}</a>
+        </button>
+        {% endfor %}
+    </div>
+    {% endif %}
+</body>
+</html>

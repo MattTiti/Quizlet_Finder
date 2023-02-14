@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Quizlet Search Results</title>
+  </head>
+  <body>
+    <h1>Quizlet Search Results</h1>
+    <ul>
+      {% for link in links %}
+      <li><a href="{{ link }}" target="_blank">{{ link }}</a></li>
+      {% endfor %}
+    </ul>
+  </body>
+</html>
