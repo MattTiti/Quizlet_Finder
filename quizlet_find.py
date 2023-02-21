@@ -1,8 +1,10 @@
-import requests
-from bs4 import BeautifulSoup
+import os
+from googleapiclient.discovery import build
 from flask import Flask, request, render_template
 
 app = Flask(__name__)
+app.config['SECRET_KEY'] = "secretkey123"
+
 
 @app.route("/")
 def index():
@@ -12,32 +14,19 @@ def index():
 def search():
     if request.method == "POST":
         query = request.form["query"]
-        google_url = f"https://www.google.com/search?q={query}+site%3Aquizlet.com"
-        response = requests.get(google_url)
-        soup = BeautifulSoup(response.text, "html.parser")
-        results = soup.find_all("a")
+        service = build("customsearch", "v1", developerKey='AIzaSyB0Y2mhvYWOmFCFj35rA_8FJKGYEGonkQ0')
+        result = service.cse().list(q=query, cx='756fae1a68b4e48dd').execute()
+
         links = []
         titles = []
         descriptions = []
-        # divs = soup.find_all("div")
-        # print(divs)
-        # for div in divs:
-        #     spans = div.find_all("span")
-        #     print(spans)
-        #     # for span in spans:
-        #     #     # Do something with the span element
-        #     #     descriptions.append(span.text)
-        for result in results:
-            if "href" in result.attrs:
-                url = result.attrs["href"]
-                if url.startswith("/url?q="):
-                    url = url[7:]
-                    if "quizlet.com" in url:
-                        links.append(url)
-                        # Extract the title of the Quizlet from the URL
-                        title = url.split("/")[-2].replace("-", " ")
-                        titles.append(title)
-        print(links)
+        for item in result['items']:
+            link = item['link']
+            if link.startswith("https://quizlet.com/"):
+                links.append(link)
+                titles.append(item['title'])
+                descriptions.append(item['snippet'])
+
         return render_template("index.html", links=links, titles=titles)
     return render_template("index.html")
 
