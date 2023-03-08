@@ -7,7 +7,7 @@
 <body>
     <h1 class="header">Quizlet Finder</h1>
     <form action="/search" method="post">
-        <input type="text" name="query" value="{{ query }}">
+        <input type="text" name="query" placeholder="Enter question, keyword, phrase...">
         <input type="submit" value="Search">
     </form>
     {% if links %}
