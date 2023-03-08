@@ -79,7 +79,6 @@ input[type="submit"]:hover {
   display: inline-block;
   margin: 10px;
   position: relative;
-  z-index: 0;
 }
 
 .link-number {
@@ -110,9 +109,32 @@ input[type="submit"]:hover {
   z-index: 1;
 }
 
+.link-button span.desc {
+  display: none;
+}
 
 .link-button:hover {
   background-color: #4255ff;
   color: #4255ff;
   cursor: pointer;
+}
+.link-button:hover a {
+  display: none;
+}
+
+.link-button:hover span.desc {
+  display: block;
+  text-decoration: none;
+  text-transform: uppercase;
+  color: #fff;
+  font-size: 14px;
+  font-weight: bold;
+  padding: 0;
+  display: block;
+  position: absolute;
+  width: 180px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
 }

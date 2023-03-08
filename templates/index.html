@@ -13,11 +13,14 @@
     {% if links %}
     <div class="links-container">
         {% for i in range(0, (links|length) - 1) %}
-        <button class="link-button">
+        <button class="link-button" onclick="window.open('{{ links[i] }}', '_blank')">
             <p class="link-number">{{ '#' }}{{ i + 1 }}</p>
-            <a href="{{ links[i] }}" target="_blank">{{ titles[i] }}</a>
-        </button>
+            <a>{{ titles[i] }}</a>
+            <span class="desc">{{ descriptions[i] }}</span>
+          </button>
         {% endfor %}
+        
+
     </div>
     {% endif %}
 </body>
